@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.principal{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+}
+
+.form{
+    border: 2px solid black;
+    padding: 2%;
+    display: none;
+}
+
+.mostrar{
+    border: 2px solid black;
+    width: 50%;
+    height: 90%;
+    padding: 2%;
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ---- bootstrap------ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- ---------js--------- -->
+    <script src="vista.js"></script>
+    <!-- ----------- css -------- -->
+    <link rel="stylesheet" href="./vista.css">
+    <title>School</title>
+</head>
+<body>
+
+     <!-- -------------NavBar--------------------------- -->
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">School</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="mostrarAlumnos()">Alumnos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="mostrarNotas()">Notas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="mostrarProfes()">Profesores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="mostrarGrupos()">Grupos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="mostrarAsignaturas()">Asignaturas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="">Adicional</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- --------------------- FORM 1 ------------------------------------ -->
+    <div class="principal">
+      <form class="form" id="alumnos">
+        <div class="mb-3">
+          <label  class="form-label" >Nombre</label>
+          <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" >
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Grupo</label>
+            <input type="text" class="form-control" id="grupoForm" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Año de ingreso</label>
+            <input type="text" class="form-control" id="ano" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">id</label>
+            <input type="text" class="form-control" id="id" aria-describedby="emailHelp">
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="mostrarAl()">Mostrar</button>
+        <button type="button" class="btn btn-primary" onclick="crearAl()">Crear</button>
+        <button type="button" class="btn btn-primary" >Actualizar</button>
+        <button type="button" class="btn btn-primary" onclick="deleteAlum()">Eliminar</button>
+
+      </form>
+
+      <!-- --------------------- FORM 2 ------------------------------------ -->
+        <form class="form" id="notas">
+          <div class="mb-3">
+            <label  class="form-label">Estudiante</label>
+            <input type="text" class="form-control" id="estudiante" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">Asignatura</label>
+              <input type="text" class="form-control" id="asignatura" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">Fecha</label>
+              <input type="text" class="form-control" id="fecha" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">Nota</label>
+              <input type="text" class="form-control" id="nota" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">id</label>
+              <input type="text" class="form-control" id="idMark" aria-describedby="emailHelp">
+          </div>
+  
+          <button type="button" class="btn btn-primary" onclick="mostrarNot()" >Mostrar</button>
+          <button type="button" class="btn btn-primary">Crear</button>
+          <button type="button" class="btn btn-primary">Actualizar</button>
+          <button type="button" class="btn btn-primary">Eliminar</button>
+  
+        </form>
+
+              <!-- --------------------- FORM 3 ------------------------------------ -->
+        <form class="form" id="profesores">
+          <div class="mb-3">
+            <label  class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreProf" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellidoProf" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">ID</label>
+              <input type="text" class="form-control" id="id_prof" aria-describedby="emailHelp">
+          </div>
+  
+          <button type="button" class="btn btn-primary">Mostrar</button>
+          <button type="button" class="btn btn-primary">Crear</button>
+          <button type="button" class="btn btn-primary">Actualizar</button>
+          <button type="button" class="btn btn-primary">Eliminar</button>
+  
+        </form>
+
+              <!-- --------------------- FORM 4 ------------------------------------ -->
+        <form class="form" id="grupo">
+          <div class="mb-3">
+            <label  class="form-label">Grupo</label>
+            <input type="text" class="form-control" id="nombreGrupo" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">id</label>
+              <input type="text" class="form-control" id="idGrupo" aria-describedby="emailHelp">
+          </div>
+  
+          <button type="button" class="btn btn-primary">Mostrar</button>
+          <button type="button" class="btn btn-primary">Crear</button>
+          <button type="button" class="btn btn-primary">Actualizar</button>
+          <button type="button" class="btn btn-primary">Eliminar</button>
+  
+        </form>
+
+                      <!-- --------------------- FORM 5 ------------------------------------ -->
+        <form class="form" id="asignaturas">
+          <div class="mb-3">
+            <label  class="form-label">Asignatura</label>
+            <input type="text" class="form-control" id="nombreAsign" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">id</label>
+              <input type="text" class="form-control" id="idAsign" aria-describedby="emailHelp">
+          </div>
+  
+          <button type="button" class="btn btn-primary" onclick="mostrarAsign()">Mostrar</button>
+          <button type="button" class="btn btn-primary">Crear</button>
+          <button type="button" class="btn btn-primary">Actualizar</button>
+          <button type="button" class="btn btn-primary">Eliminar</button>
+  
+        </form>
+
+                      <!-- --------------------- FORM 6 ------------------------------------ -->
+        <form class="form" id="adicional">
+          <div class="mb-3">
+            <label  class="form-label">Grupo</label>
+            <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">id</label>
+              <input type="text" class="form-control" id="id" aria-describedby="emailHelp">
+          </div>
+  
+          <button type="button" class="btn btn-primary">Mostrar</button>
+          <button type="button" class="btn btn-primary">Crear</button>
+          <button type="button" class="btn btn-primary">Actualizar</button>
+          <button type="button" class="btn btn-primary">Eliminar</button>
+  
+        </form>
+      <!-- ------------------------ DIV ----------------------------------- -->
+        <div id="mostrar" class="mostrar">
+            
+        </div>
+</div>
+    <!-- <input id="id" placeholder="id">
+    <button type="button" onclick="mostrar()">Mostrar</button> -->
+</body>
+</html>

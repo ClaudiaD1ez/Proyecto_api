@@ -5,11 +5,13 @@ const router = Router();
 
 router.get("/alumnos", alumnoCtrl.getAlumno);
 
+// router.get("/alumnos/id", alumnoCtrl.getAlumno);
+
 router.post("/alumnos", alumnoCtrl.postAlumno);
 
-router.put("/alumnos", alumnoCtrl.putAlumno);
+router.put("/alumnos/", alumnoCtrl.putAlumno);
 
-router.delete("./alumnos", alumnoCtrl.deleteAlumno);
+router.delete("/alumnos", alumnoCtrl.deleteAlumno);
 
 
 module.exports = router

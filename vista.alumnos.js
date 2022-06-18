@@ -8,7 +8,6 @@ class Alumno{
         this.ano = ano
     }
 
-
 }
 
 // ------------mostrar formularios
@@ -54,10 +53,10 @@ function mostrarAsignaturas(){
 async function mostrarAl(){
     let url
     let id = document.getElementById("id").value
-    if( id != " "){
-        url = `http://localhost:3000/alumnos?id=${id}`;
-    }else{
+    if( !id){
         url="http://localhost:3000/alumnos"
+    }else{
+        url = `http://localhost:3000/alumnos?id=${id}`;
     }
 
     let params={
@@ -71,7 +70,7 @@ async function mostrarAl(){
 
         console.log(result)
 
-        if(result.length = 1){
+        if(result.length == 1){
             console.log("mostrar uno")
            
             let imprimirTodo =
@@ -84,9 +83,9 @@ async function mostrarAl(){
              document.getElementById("mostrar").innerHTML += imprimirTodo
 
         }else{
-            for(i=0 ; i<result.students.length ; i++){
-            
-                console.log("mostrar Todos")
+            console.log("mostrar Todos")
+
+            for(i=0 ; i<result.length ; i++){
 
                 let imprimirTodo =
                `<p>Nombre:   ${result[i].students_id}</p>
@@ -98,6 +97,7 @@ async function mostrarAl(){
                 document.getElementById("mostrar").innerHTML += imprimirTodo
              }
         }
+
 
     }catch(err){
         console.log(err)
@@ -113,11 +113,6 @@ console.log("funciona?")
         let apellido = document.getElementById("apellido").value;
         let grupo = document.getElementById("grupoForm").value;
         let ano = document.getElementById("ano").value;
-
-        console.log(nombre);
-        console.log(apellido);
-        console.log(grupo);
-        console.log(ano);
 
     let nuevoAlumno = new Alumno(nombre, apellido, grupo,ano)
 
@@ -139,7 +134,7 @@ console.log("funciona?")
                 if(resultado.error){         
                     console.log("error")   
                 }else{
-                    console.log("Usuario creado correctamente")} 
+                    console.log("Nota creado correctamente")} 
 
                         
          }catch(error){
@@ -154,19 +149,19 @@ async function deleteAlum(){
 
     try{
         let id = document.getElementById('id').value;
-        let json = { "students_id" : id}
+        // let json = { "id" : id}
 
 
-        let url   = `http://localhost:3000/alumnos`;
+        let url = `http://localhost:3000/alumnos?id=${id}`;
 
         let param = {
             
             headers:{"content-type": "application/json; charset=UTF-8" },
-            body: JSON.stringify(json),
             method: "DELETE"
         }
 
         let data   = await fetch( url, param );
+        console.log(data);
         let result = await data.json();
 
         if(result.error){         
@@ -179,22 +174,30 @@ async function deleteAlum(){
     }
 }
 
+// -------------------------------------------------------------
+
 async function putAlumno(){
 
     try{
 
-    let url = `http://localhost:3000/alumnos`;
+        let id = document.getElementById("id").value
+        let nuevoNombre = document.getElementById("nombre").value;
+        let nuevoApellido = document.getElementById("apellido").value;
+        let nuevoGrupo = document.getElementById("grupoForm").value;
+        let nuevoAno = document.getElementById("ano").value;
+
+        let nuevoAlumno = new Alumno (nuevoNombre, nuevoApellido, nuevoGrupo, nuevoAno)
+
+        let url = `http://localhost:3000/alumnos?id=${id}`;
 
         let param = {
 
-            headers:{
-                "content-type": "application/json; charset=UTF-8"
-            },
-            body: JSON.stringify( nuInfo ),
+            headers:{"content-type": "application/json; charset=UTF-8"},
+            body: JSON.stringify(nuevoAlumno),
             method: "PUT"
         }
 
-        console.log( param );
+        console.log(nuevoAlumno);
 
         let data   = await fetch ( url, param );
         let result = await data.json();
@@ -259,54 +262,3 @@ async function putAlumno(){
 //     }
 // }
 
-async function mostrarNot(){
-    let url
-    let id = document.getElementById("idMark").value
-    if( id != ""){
-        url = `http://localhost:3000/notas?id=${id}`;
-    }else{
-        url="http://localhost:3000/notas"
-    }
-
-    let param={
-        'headers':{"content-type":"application/json; charset=UTF-8",
-        'method':"GET"}
-    }
-
-    try{
-        let data = await fetch(url,param)
-        let result = await data.json()
-
-        console.log(result)
-
-        if(result.length = 1){
-            console.log("mostrar uno")
-           
-            let imprimirTodo =
-            `<p>Id del estudiante:   ${result[0].student_id}</p>
-             <p>Id de la asignatura: ${result[0].subject_id}</p>
-             <p>Fecha:               ${result[0].date}</p>
-             <p>Nota:                ${result[0].mark}</p>`
-             
-             document.getElementById("mostrar").innerHTML += imprimirTodo
-
-        }else{
-            for(i=0 ; i<result.marks.length ; i++){
-            
-                console.log("mostrar Todos")
-
-                 let imprimirTodo =
-                 `<p>Id del estudiante:   ${result[i].student_id}</p>
-                  <p>Id de la asignatura: ${result[i].subject_id}</p>
-                  <p>Fecha:               ${result[i].date}</p>
-                  <p>Nota:                ${result[i].mark}</p>`
-                 
-                
-                document.getElementById("mostrar").innerHTML += imprimirTodo
-             }
-        }
-
-    }catch(err){
-        console.log(err)
-    }
-}

@@ -11,9 +11,16 @@ function getStart(request, response)
 function getNota(request,response)
 {
     let sql;
-    let id = request.query.idMark;
+    // let id = request.body.student_id;
 
-        sql = `SELECT subjects.title , mark , student_id FROM subjects JOIN marks WHERE student_id=${id}`;
+    if(request.query.student_id != null){
+        sql = `SELECT * FROM marks WHERE student_id=`+ request.query.student_id;
+        // sql=`SELECT mark_id, student_id, mark FROM marks WHERE student_id =${id}`
+        // sql = `SELECT subjects.title , mark , student_id FROM subjects JOIN marks`
+     }else{
+         // sql = "SELECT * FROM students WHERE students_id=" + id;
+         sql = `SELECT *  FROM marks`
+     }
     
     connection.query(sql, function (err,result){
         if (err){
@@ -30,25 +37,26 @@ function postNota(request,response)
 {
     console.log(request.body);
 
-    let estudiante = request.body.nombre;
-    let asignatura = request.body.apellido;
-    let fecha = request.body.grupo;
-    let nota = request.body.año;
+    let estudiante = request.body.student_id;
+    let asignatura = request.body.subject_id;
+    let fecha = request.body.date;
+    let nota = request.body.mark;
 
-    let sql = "INSERT INTO marks (student_id, subject_id, date, mark) VALUES ('" + estudiante + "', ' " + asignatura + "' , '" + fecha + "','" + nota + "')'";
+    let sql =`INSERT INTO marks (student_id, subject_id, date, mark) VALUES ("${estudiante}","${asignatura}","${fecha}","${nota}" )`
 
-    console.log(sql);
     connection.query(sql,function (err,result)
     {
+        let respuesta
         if(err){
             console.log(err)
         }else{
             console.log(result);
             if(result.insertId){
-                response.send(String(result.insertId));
+                respuesta = {error:false, codigo: 200, mensaje: "Nota añadido" }
             }else{
-                response.send("-1")
+                respuesta = {error:true, codigo:400,mensaje:"error" }
             }
+            response.send(respuesta)
         }
     })
 }
@@ -59,12 +67,12 @@ function postNota(request,response)
 function putNota(request,response)
 {
   let sql; 
-  let id = request.query.idMark;
+  let id = request.body.student_id; //¿idMark?
       
-      let nuevoEstudiante  = request.body.estudiante;
-      let nuevoAsignatura  = request.body.asignatura;
-      let nuevoFecha       = request.body.fecha;
-      let nuevoNota        = request.body.nota;
+      let nuevoEstudiante  = request.body.student_id;
+      let nuevoAsignatura  = request.body.subject_id;
+      let nuevoFecha       = request.body.date;
+      let nuevoNota        = request.body.mark;
 
 
       sql = "UPDATE marks SET student_id = '" + nuevoEstudiante +  "', subject_id = ' " + nuevoAsignatura +  "', date = ' " + nuevoFecha +  "', mark = ' " + nuevoNota + " ' WHERE student_id = ' " + id + " ' ";
@@ -81,19 +89,23 @@ function putNota(request,response)
 
 // --------------------------------------------------------------------------
 
-function deleteNota (request,response)
+function deleteNota(request,response)
 {
     let sql;
-    let id = request.query.idMark;
+    let id = request.body.student_id; //¿idMark?
+    console.log(id);
 
-        sql = `DELETE FROM marks WHERE students_id=${id}`;
+        sql = `DELETE FROM marks WHERE student_id=${id}`;
 
     connection.query(sql, function (err,result){
+
         if (err){
-            console.log(err);
+            respuesta = {error:true, codigo: 200, mensaje: "error" }
         }else{
-            response.send(result);
+            respuesta = {error:false, codigo: 200, mensaje: "Nota eliminada" }
         }
+        response.send(respuesta);
+
     })
 }
 

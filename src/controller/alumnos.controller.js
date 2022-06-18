@@ -13,7 +13,7 @@ function getAlumno(request,response)
     let sql;
     let id = request.query.id;
     if(!id){
-       sql = "SELECT * FROM students"
+       sql = `SELECT * FROM students`
     }else{
         // sql = "SELECT * FROM students WHERE students_id=" + id;
         sql = `SELECT * FROM students WHERE students_id=${id}`;
@@ -66,12 +66,12 @@ function postAlumno(request,response)
     let sql; 
     let id = request.query.id;
         
-        let nuevoNombre   = request.body.nombre;
-        let nuevoApellido  = request.body.apellido;
-        let nuevoGrupo    = request.body.grupo;
-        let nuevoAño      = request.body.año;
+        let nuevoNombre   = request.body.first_name;
+        let nuevoApellido  = request.body.last_name;
+        let nuevoGrupo    = request.body.group_id;
+        let nuevoAno      = request.body.ano;
 
-        sql = "UPDATE students SET first_name = '" + nuevoNombre +  "', last_name = ' " + nuevoApellido +  "', group_id = ' " + nuevoGrupo +  "', año_ingres = ' " + nuevoAño + " ' WHERE students_id =${id}";
+        sql = `UPDATE students SET first_name = "${nuevoNombre}", last_name = "${nuevoApellido}" , group_id = "${nuevoGrupo}", año_ingreso = "${nuevoAno}" WHERE students_id = ${id}`
     
     connection.query(sql, function (err,result){
 
@@ -87,17 +87,21 @@ function postAlumno(request,response)
 
     function deleteAlumno (request,response)
     {
+        console.log("holi");
         let sql;
         let id = request.query.id;
-
+        console.log(id);
             sql = `DELETE FROM students WHERE students_id=${id}`;
     
         connection.query(sql, function (err,result){
+        
             if (err){
-                console.log(err);
+                respuesta = {error:true, codigo: 200, mensaje: "error" }
             }else{
-                response.send(result);
+                respuesta = {error:false, codigo: 200, mensaje: "Alumno eliminado" }
             }
+            response.send(respuesta);
+
         })
     }
 

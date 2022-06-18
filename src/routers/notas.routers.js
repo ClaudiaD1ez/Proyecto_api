@@ -1,5 +1,5 @@
 const {Router} = require("express")
-const notasCtrl = require("../controller/alumnos.controller");
+const notasCtrl = require("../controller/notas.controller");
 
 const router = Router();
 
@@ -9,7 +9,9 @@ router.post("/notas", notasCtrl.postNota);
 
 router.put("/notas", notasCtrl.putNota);
 
-router.delete("./notas", notasCtrl.deleteNota);
+router.delete("/notas", notasCtrl.deleteNota);
+
+// router.delete("/notas?id=", notasCtrl.deleteNota)
 
 
 module.exports = router
